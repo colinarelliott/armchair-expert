@@ -1,8 +1,7 @@
 from basicRAG import basic_rag_pipeline
 
-# INPUT QUESTION HERE ______________________________________
-question = "Who's Zeus' father?"
-#___________________________________________________________
+# get the question from the user
+question = input("Enter your question: \n")
 
 #structure data and run the pipeline
 input_data = {
