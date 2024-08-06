@@ -15,10 +15,10 @@ document_store = InMemoryDocumentStore()
 from datasets import load_dataset
 from haystack import Document
 
-
 # ORIGINAL DATASET: "bilgeyucel/seven-wonders"
-dataset = load_dataset("pszemraj/booksum-short", split="train")
-docs = [Document(content=doc["summary"], meta=doc["book_id"]) for doc in dataset]
+# BOOK SUMMARIES: "pszemraj/booksum-short"
+dataset = load_dataset("bilgeyucel/seven-wonders", split="train")
+docs = [Document(content=doc["content"], meta=doc["meta"]) for doc in dataset]
 
 
 # Initialize document embedder "SentenceTransformersDocumentEmbedder"
