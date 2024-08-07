@@ -1,5 +1,7 @@
 from reactpy import component, html, run
 
 @component
-def upload():
-    return html.p("Uploading...")
+def upload(file):
+    print("uploadComponent.py loaded")
+    return html.p(file)
+    
