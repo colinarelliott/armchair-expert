@@ -1,3 +1,11 @@
+# Standard requirements
 haystack-ai~=2.3.1
 datasets>=2.6.1
 sentence-transformers>=2.2.0
+# Required for PDF & other format parsing
+huggingface_hub>=0.22.0
+markdown-it-py>=0.6.2
+mdit_plain>=0.2.0
+pypdf>=1.13
+gdown>=3.13.0
+cryptography>=3.4.7
