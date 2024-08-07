@@ -1,8 +1,12 @@
 # Armchair Expert 
 **A ReactPy App for chatting with an AI about specific provided documents, uses Haystack AI as a lightweight LLM Vector Database Builder**
-- Simple implementation of a RAG (Retrieval Augmented Generator) model LLM that reads from Hugging Face models (`basicRAG.py`)
-- OpenAI API Key Input Required in `.env` file or `$PATH`
-- `query.py` contains a simple call to the RAG model using a customizable query string
+
+#### Core Functionality
+- Contains a ReactApp wrapper written in Python that delivers a quick and easy LLM experience you can train on your own documents of all kinds 
+
+##### Extras
+- Simple implementation of a RAG (Retrieval Augmented Generator) model LLM that reads from Hugging Face models
+- Contains a simple query function for the RAG model using a customizable query string
 
 ## Installation
 1. Install the Python Requirements
