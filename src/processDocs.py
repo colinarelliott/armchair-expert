@@ -22,6 +22,16 @@ def preload():
     if (preloadComplete):
         return preloadComplete
     else:
+        # create a folder to store local input files
+        import os
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+        # create the .env file
+        if not os.path.exists(".env"):
+            with open(".env", "w") as f:
+                f.write("HF_API_TOKEN='your_token_here'\n OPENAI_API_KEY='your_token_here'\n")
+
+
         # create a pipeline to index documents
         document_store = InMemoryDocumentStore()
         file_type_router = FileTypeRouter(mime_types=["text/plain", "application/pdf", "text/markdown"])
