@@ -11,3 +11,4 @@ gdown>=3.13.0
 cryptography>=3.4.7
 # Required for Web App
 reactpy[starlette]~=1.0.2
+reactpy_router~=0.1.1
