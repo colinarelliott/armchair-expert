@@ -3,6 +3,7 @@ from pathlib import Path
 from components.styleComponent import css, js
 from components.uploadComponent import handle_upload
 from components.photoComponent import Photo as photo
+from src.processDocs import summaries
 
 @component
 def chat(handle_submit, set_message, message, response, clear, output_dir):
@@ -63,7 +64,12 @@ def chat(handle_submit, set_message, message, response, clear, output_dir):
                         "class": "list-group p-2 m-2 bg-dark text-light",
                     },
                     [html.li(
-                        {"class": "list-group-item bg-dark text-light"},
+                        {
+                            "class": "list-group-item bg-dark text-light",
+                            "data-toggle":"tooltip",
+                            "data-placement":"top",
+                            "title":summaries[file],
+                        },
                         str(file)) for file in list(Path(output_dir).glob("**/*"))]
                 ),),),
                 # Form

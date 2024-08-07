@@ -8,6 +8,7 @@ from haystack import Pipeline
 from haystack.document_stores.in_memory import InMemoryDocumentStore
 
 output_dir = "processing"
+summaries = {}
 
 # pass off between the two functions for modularity
 pipe = Pipeline()
@@ -117,6 +118,15 @@ def preload():
         pipe.connect("prompt_builder", "llm")
 
         print("Welcome to Armchair Expert. You loaded the following files:\n")
+
+        # summarize files
+        for file in list(Path(output_dir).glob("**/*")):
+            summary = ask("Summarize the file " + str(file))
+            print(f"{file}: {summary}")
+            global summaries
+            summaries[file] = summary
+            print(summaries)
+
         for file in list(Path(output_dir).glob("**/*")):
             print(file)
         
