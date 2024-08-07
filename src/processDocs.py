@@ -12,9 +12,15 @@ output_dir = "processing"
 # pass off between the two functions for modularity
 pipe = Pipeline()
 
-def preload(loaded = False):
-    if (pipe is None):
-        return loaded
+preloadComplete = False
+
+def setPreload(bool):
+    global preloadComplete
+    preloadComplete = bool
+
+def preload():
+    if (preloadComplete):
+        return preloadComplete
     else:
         # create a pipeline to index documents
         document_store = InMemoryDocumentStore()
@@ -103,9 +109,10 @@ def preload(loaded = False):
         print("Welcome to Armchair Expert. You loaded the following files:\n")
         for file in list(Path(output_dir).glob("**/*")):
             print(file)
-        loaded = True
-
-        return loaded
+        
+        # preload complete
+        setPreload(True)
+        return preloadComplete
 
 def ask(message):
     print("Loading...")
