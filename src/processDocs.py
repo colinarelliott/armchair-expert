@@ -75,7 +75,7 @@ def preload(loaded = False):
     from haystack.components.generators import HuggingFaceAPIGenerator
 
     template = """
-    You are a representative Officer of CUPE2424. You are asked to provide a response to the following question.
+    You are a professional in the related field, you are asked to answer the following question.
 
     Context:
     {% for document in documents %}
