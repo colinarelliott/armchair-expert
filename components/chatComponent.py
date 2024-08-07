@@ -14,20 +14,28 @@ def chat(handle_submit, set_message, message, response, clear, output_dir):
             },
                 # Header
                 html.h1({"style":"h1 p-2 m-2",}, "Armchair Expert Chat"),
+                html.div({"class":"row"},
                 # upload files form
-                html.form(
-                    { "action": "upload", "enctype": "multipart/form-data",
-                     "class": "form-control p-2 m-2",
+                html.div(
+                    {
+                     "class": "mb-3 col-6",
                      },
-                    html.input(
-                        { "type": "file", "name": "file", "multiple": "true", "class": "form-control" },
-                    ),
-                    html.button(
-                        { "type": "submit", "class": "btn btn-primary" },
+                    html.label(
+                        { "for": "formFile", "class": "form-label" },
                         "Upload Files"
                     ),
+                    html.input(
+                        { "class": "form-control", "type": "file", "id":"formFile", "multiple": "true" },
+                    ),
+                    html.button(
+                        { "class": "form-control btn btn-primary d-grid gap-2 d-md-flex", "type": "submit" },
+                        "Upload"),
                 ),
                 # Loaded files
+                html.div(
+                    {
+                     "class": "mb-3 col-6",
+                     },
                 html.h4({"style":"h4 p-2 m-2",},"Loaded file(s):\n"),
                 html.ul(
                     {
@@ -36,7 +44,7 @@ def chat(handle_submit, set_message, message, response, clear, output_dir):
                     [html.li(
                         {"class": "list-group-item"},
                         str(file)) for file in list(Path(output_dir).glob("**/*"))]
-                ),
+                ),),),
                 # Form
                 html.form(
                 {"class":"form-control p-2 m-2","on_submit": handle_submit, "style": {"display": "inline-grid"}},
