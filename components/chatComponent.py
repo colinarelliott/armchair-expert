@@ -108,7 +108,7 @@ def chat(handle_submit, set_message, message, response, clear, output_dir):
                 },
                 html.label({
                     "class": "unselectable label",
-                }, "Armchair Expert Chat - Powered by ReactPy & Haystack AI\n - © 2024 Colin Elliott - \n"),
+                }, "Armchair Expert Chat v0.5 - Powered by ReactPy & Haystack AI\n - © 2024 Colin Elliott - \n"),
                 html.a(
                     {
                         "href": "https://colinelliott.website",
