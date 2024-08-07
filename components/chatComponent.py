@@ -1,58 +1,9 @@
-import asyncio
+from reactpy import component, html
 from pathlib import Path
-from reactpy import component, event, html, run, use_state
-from src.processDocs import preload as pre, ask
 
-output_dir = "processing"
-
-# Armchair Expert Chat Component (All one for now, separate later)
 @component
-def ArmchairExpertChat():
-    this = ArmchairExpertChat;
-    # state vars
-    message, set_message = use_state("")
-    response, set_response = use_state("")
-    loaded, set_loaded = use_state(False)
-
-    @event(prevent_default=True)
-    async def handle_submit(event):
-        if (message == ""):
-            set_response("Please enter a message")
-            return
-        set_message("")
-        set_response("Loading response...")
-        print("Loading...")
-        await asyncio.sleep(1)
-        if (loaded == True): # if the model has loaded, ask the question
-            set_response(ask(message))
-        else:
-            set_response("Model failed to load in time. Please try again.")
-    
-    def clear():
-        set_message("")
-        set_response("")
-
-    def preloader():
-        print("Building model...")
-        pre()
-        set_loaded(True)
-
-    if (loaded != True): # if the model hasn't loaded yet, show a loading message
-        preloader()
-        return (
-            html.section(
-                html.p({
-                    "style": {
-                        "margin": "10px",
-                        "padding": "10px",
-                        "text_align": "center",
-                        "font_family": "Helvetica, sans-serif",
-                    }
-                },"Loading model...")
-            )
-        )
-    else:
-        return (
+def chat(handle_submit, set_message, message, response, clear, output_dir):
+    return (
         html.section(
             # Section style
             html.div(
@@ -70,6 +21,27 @@ def ArmchairExpertChat():
             },
                 # Header
                 html.h1("Armchair Expert Chat"),
+                # upload files form
+                html.form(
+                    { "action": "upload", "enctype": "multipart/form-data",
+                     "style": {
+                        "margin": "10px",
+                        "padding": "10px",
+                        "border": "1px solid black",
+                        "border_radius": "5px",
+                        "background": "#f4f4f4",
+                        "font_family": "Helvetica, sans-serif",
+                    }
+                     },
+                    html.input(
+                        { "type": "file", "name": "file", "multiple": "true" },
+                    ),
+                    html.button(
+                        { "type": "submit" },
+                        "Upload Files"
+                    ),
+                ),
+                # Loaded files
                 html.h4("Loaded file(s):\n"),
                 html.ul(
                     {
@@ -161,5 +133,3 @@ def ArmchairExpertChat():
                     },
             )
         ))))
-
-run(ArmchairExpertChat)
