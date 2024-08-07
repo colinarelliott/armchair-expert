@@ -1,4 +1,6 @@
-# Armchair Expert 
+
+# <img src="assets/armchairexpertlogodark.png" alt="acelogo" width="75"/> Armchair Expert 
+
 **A ReactPy App for chatting with an AI about specific provided documents, uses Haystack AI as a lightweight LLM Vector Database Builder**
 
 #### Core Functionality
