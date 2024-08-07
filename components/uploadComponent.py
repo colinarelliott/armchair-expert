@@ -1,9 +1,12 @@
-from reactpy import component, html, run
+from reactpy import event
+import shutil
 
-@component
-async def upload(file):
-    print("uploadComponent.py loaded")
-    return (
-        html.p(file)
-    )
+@event(prevent_default=True)
+async def handle_upload(event):
+    print(event)
     
+    """
+    path = event.get("currentTarget").get("value")
+    localPath = "processing/"
+    for file in path:
+        shutil.copy(file, localPath)"""

@@ -7,5 +7,5 @@ from components.uploadComponent import upload
 def root():
     return simple.router(
         route("/", ArmchairExpertChat),
-        route("/upload", upload),
+        route("/upload", upload.handle_upload),
     )
