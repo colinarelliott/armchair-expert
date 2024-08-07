@@ -1,4 +1,4 @@
-from reactpy import component, html
+from reactpy import html
 
 # Get CSS and JS from Bootstrap CDN
 CSSurl = "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"

@@ -10,19 +10,10 @@ def chat(handle_submit, set_message, message, response, clear, output_dir):
             # Section style
             html.div(
             {
-                "style": {
-                    "width": "50%",
-                    "align": "center",
-                    "text_align": "center",
-                    "border": "1px solid black",
-                    "border_radius": "5px",
-                    "padding": "10px",
-                    "background": "#f4f4f4",
-                    "font_family": "Helvetica, sans-serif",
-                },
+                "class": "container container-fluid",
             },
                 # Header
-                html.h1("Armchair Expert Chat"),
+                html.h1({"style":"h1 p-2 m-2",}, "Armchair Expert Chat"),
                 # upload files form
                 html.form(
                     { "action": "upload", "enctype": "multipart/form-data",
@@ -37,10 +28,10 @@ def chat(handle_submit, set_message, message, response, clear, output_dir):
                     ),
                 ),
                 # Loaded files
-                html.h4("Loaded file(s):\n"),
+                html.h4({"style":"h4 p-2 m-2",},"Loaded file(s):\n"),
                 html.ul(
                     {
-                        "class": "list-group"
+                        "class": "list-group p-2 m-2",
                     },
                     [html.li(
                         {"class": "list-group-item"},
@@ -89,6 +80,6 @@ def chat(handle_submit, set_message, message, response, clear, output_dir):
                 html.a(
                     {
                         "href": "https://colinelliott.website",
-                    },
+                    }, " colinelliott.website"
             )
         ))))
