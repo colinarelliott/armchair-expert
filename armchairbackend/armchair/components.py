@@ -1,12 +1,9 @@
-from reactpy import component, html
+from reactpy import component
 from reactpy_django.components import view_to_component
-
 from armchair import views
 
-chat = view_to_component(views.index)
+armchairchat = view_to_component(views.chat)
 
 @component
-def index():
-    return html.div(
-        chat(),
-    )
+def chat():
+    return armchairchat()
