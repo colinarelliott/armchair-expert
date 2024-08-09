@@ -10,3 +10,7 @@ processing/*
 *.sqlite3
 media/*
 static/*
+armchairbackend/__pycache__/*
+armchairbackend/migrations/__pycache__/*
+armchairbackend/migrations/*
+armchairbackend/processing/*
