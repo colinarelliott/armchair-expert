@@ -26,36 +26,35 @@ def chat(handle_submit, set_message, message, response, clear, output_dir):
                 # upload files form
                 html.div(
                     {
-                        "class": "mb-3 col-4",
+                        "class": "mb-3 col-6",
                         },
+                        html.h5({"style":"h5",},"Upload file(s) (WIP):\n"),
                     html.form(
                         {
-                        "class":"form-control p-2 m-2 bg-dark text-light",
+                        "class":"form-control border-0 bg-dark text-light",
                         "on_submit": handle_submit,
                         "style": {"display": "inline-grid"},
                         "enctype": "multipart/form-data",
                         },
-                        html.label(
-                            { "for": "formFile", "class": "form-label" },
-                            "Upload File(s) (WIP)"
-                        ),
-                        html.input(
-                            { "class": "form-control bg-dark text-light", "type": "file", "id":"formFile", "multiple": "true", "value": "", "on_change": handle_upload },
-                        ),
-                        html.button({
-                            "class": "form-control btn btn-info d-grid gap-2 d-md-flex",
-                            "type": "submit",
-                            "for": "formFile",
-                            "on_click":handle_upload,
-                            "disabled":"true"}, "Upload to AI",
-                            
+                        html.div({"class":"input-group"},
+                            html.input(
+                                { "class": "form-control bg-dark text-light", "type": "file", "id":"formFile", "multiple": "true", "value": "", "on_change": handle_upload },
+                            ),
+                            html.button({
+                                "class": "form-control btn btn-info d-grid gap-2 d-md-flex",
+                                "type": "submit",
+                                "for": "formFile",
+                                "on_click":handle_upload,
+                                "disabled":"true"}, "Upload to AI",
+                                
+                            ),
                         ),
                     ),
                 ),
                 # Loaded files
                 html.div(
                     {
-                     "class": "col-8",
+                     "class": "col-6",
                      },
                 html.h5({"style":"h5",},"Loaded file(s):\n"),
                 html.ul(
@@ -64,13 +63,14 @@ def chat(handle_submit, set_message, message, response, clear, output_dir):
                     },
                     [html.li(
                         {
-                            "class": "list-group-item bg-dark border text-light",
+                            "class": "list-group-item bg-dark text-light",
                             "data-toggle":"tooltip",
                             "data-placement":"top",
                             "title":summaries[file].strip(),
                         },
                         str(file)) for file in list(Path(output_dir).glob("**/*"))]
-                ),),
+                ), html.br(),
+                ),
                 # Form
                 html.hr(),
                 html.form(
