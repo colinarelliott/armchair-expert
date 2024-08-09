@@ -12,6 +12,7 @@ output_dir = "processing"
 def ArmchairExpertChat():
     # state vars
     message, set_message = use_state("")
+
     response, set_response = use_state("")
     loaded, set_loaded = use_state(False)
 
@@ -20,7 +21,6 @@ def ArmchairExpertChat():
         if (message == ""):
             set_response("Please enter a message")
             return
-        set_message("")
         set_response("Loading response...")
         print("Loading...")
         await asyncio.sleep(1)

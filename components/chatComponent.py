@@ -1,18 +1,17 @@
 from reactpy import component, html, event
 from pathlib import Path
-from components.styleComponent import css, js
+from components.styleComponent import css, js, armchairCSS
 from components.uploadComponent import handle_upload
 from components.photoComponent import Photo as photo
 from src.processDocs import summaries
 
 @component
 def chat(handle_submit, set_message, message, response, clear, output_dir):
-
     return (
         html.div(
             {"class": "bg-dark text-light ",
              "style": {"height": "100vh", "width": "100vw", "overflow": "auto"}},
-        css, js, 
+         armchairCSS, css, js,
             # Section style
             html.div(
             {
@@ -71,7 +70,7 @@ def chat(handle_submit, set_message, message, response, clear, output_dir):
                             "title":summaries[file],
                         },
                         str(file)) for file in list(Path(output_dir).glob("**/*"))]
-                ),),),
+                ),),
                 # Form
                 html.form(
                     {
@@ -101,12 +100,19 @@ def chat(handle_submit, set_message, message, response, clear, output_dir):
                         "class": "btn btn-warning",
                         "on_click": lambda event: clear(),
                     }, "Clear"),
-            ),
-            # Response Box
-            html.p({
-                "class": "p-3 mb-2 bg-dark text-light",
-            },{response
-            }),
+            ),),
+            # Chat Box
+            html.div ( { "class": "row bg-dark text-light align-items-top"},
+                html.div ({
+                    "class": "col p-3 m-2 bg-light text-dark rounded align-self-end",
+                },html.kbd("Human")," ",
+                    message,
+                ),       
+                html.div ({
+                    "class": "col p-3 m-2 bg-light text-dark rounded align-self-start",
+                },html.kbd("AI")," ",
+                    response),
+            ),),
             # Footer
             html.footer(
                 {
@@ -120,4 +126,4 @@ def chat(handle_submit, set_message, message, response, clear, output_dir):
                         "href": "https://colinelliott.website",
                     }, " colinelliott.website"
             )
-        ))))
+        )))
