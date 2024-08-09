@@ -6,9 +6,9 @@ def chat(request):
 
 def upload(request):
     # not a page view, just submits the file and puts it in the Documents model, then returns a response
-    #file = request.FILES['document']
-    #document = Document(user=request.user, document=file)
-    #document.save()
+    file = request.FILES['document']
+    document = Document(user=request.user, document=file)
+    document.save()
     return render(request, 'armchair.html')
 
 
