@@ -7,12 +7,17 @@ DIRNAME = os.path.abspath(os.path.dirname(__file__))
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# grab the Django Secret Key from the .env file if it exists
+from dotenv import load_dotenv
+dotenv = load_dotenv() if load_dotenv() else None
+if "DJANGO_SECRET_KEY" not in os.environ:
+            if dotenv is None or "DJANGO_SECRET_KEY" not in dotenv:
+                raise ValueError("You need to set your Hugging Face API token in the environment variable OPENAI_API_KEY or in a file called '.env'")
+            else:
+                os.environ["DJANGO_SECRET_KEY"] = dotenv["DJANGO_SECRET_KEY"]
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-z_3oelzili*b+21h0y)nj$0dnvx16&6b((6pbm-vm=0fq6y0=q'
+#load key from os environment
+SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
