@@ -15,7 +15,7 @@ def chat(handle_submit, set_message, message, response, clear, output_dir):
             # Section style
             html.div(
             {
-                "class": "container container-fluid border rounded p-3 m-3 bg-dark text-light",
+                "class": "container container-fluid rounded p-3 m-3 bg-dark text-light",
             },
                 # Header
                 photo("Armchair Expert Logo Dark", "armchairexpertlogodark.jpg"),
@@ -55,64 +55,67 @@ def chat(handle_submit, set_message, message, response, clear, output_dir):
                 # Loaded files
                 html.div(
                     {
-                     "class": "mb-3 col-8",
+                     "class": "col-8",
                      },
-                html.h5({"style":"h5 p-2 m-2",},"Loaded file(s):\n"),
+                html.h5({"style":"h5",},"Loaded file(s):\n"),
                 html.ul(
                     {
-                        "class": "list-group p-2 m-2 bg-dark text-light",
+                        "class": "list-group bg-dark text-light",
                     },
                     [html.li(
                         {
-                            "class": "list-group-item bg-dark text-light",
+                            "class": "list-group-item bg-dark border text-light",
                             "data-toggle":"tooltip",
                             "data-placement":"top",
-                            "title":summaries[file],
+                            "title":summaries[file].strip(),
                         },
                         str(file)) for file in list(Path(output_dir).glob("**/*"))]
                 ),),
                 # Form
+                html.hr(),
                 html.form(
                     {
-                        "class":"form-control p-2 m-2 bg-dark text-light",
+                        "class":"form-control border-0 bg-dark text-light",
                         "on_submit": handle_submit,
                         "style": {"display": "inline-grid"}},
                     # Input Text Box
-                    html.input(
-                        {
-                            "type": "text",
-                            "placeholder": "Your message...",
-                            "value": message,
-                            "on_change": lambda event: set_message(event["target"]["value"]),
-                            "class": "form-control form-input bg-dark text-light",
-                        }
+                    html.div({"class":"input-group border-0"},
+                        html.input(
+                            {
+                                "type": "text",
+                                "placeholder": "Your message...",
+                                "value": message,
+                                "on_change": lambda event: set_message(event["target"]["value"]),
+                                "class": "form-control form-input bg-dark text-light",
+                            }
+                        ),
+                        # Submit Button
+                        html.button(
+                            {
+                                "class": "btn btn-success",
+                            "type": "submit"
+                            }, "Send"),
+                        # Clear Button
+                        html.button(
+                            {
+                            "type": "button",
+                            "class": "btn btn-warning",
+                            "on_click": lambda event: clear(),
+                        }, "Clear"),
                     ),
-                    # Submit Button
-                    html.button(
-                        {
-                            "class": "btn btn-success",
-                        "type": "submit"
-                        }, "Send"),
-                    # Clear Button
-                    html.button(
-                        {
-                        "type": "button",
-                        "class": "btn btn-warning",
-                        "on_click": lambda event: clear(),
-                    }, "Clear"),
             ),),
             # Chat Box
             html.div ( { "class": "row bg-dark text-light align-items-top"},
                 html.div ({
-                    "class": "col p-3 m-2 bg-light text-dark rounded align-self-end",
-                },html.kbd("Human")," ",
+                    "class": "col p-3 m-2 border bg-gray-dark text-light rounded align-self-end",
+                },html.kbd("Human:")," ",
                     message,
                 ),       
                 html.div ({
-                    "class": "col p-3 m-2 bg-light text-dark rounded align-self-start",
-                },html.kbd("AI")," ",
+                    "class": "col p-3 m-2 border bg-gray-dark text-light rounded align-self-start",
+                },html.kbd("AI:")," ",
                     response),
-            ),),
+            ),
             # Footer
             html.footer(
                 {
@@ -126,4 +129,4 @@ def chat(handle_submit, set_message, message, response, clear, output_dir):
                         "href": "https://colinelliott.website",
                     }, " colinelliott.website"
             )
-        )))
+        ))))
