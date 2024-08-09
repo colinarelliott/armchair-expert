@@ -5,3 +5,8 @@ src/__pycache__/*
 temp/*
 processing/*
 .venv/*
+
+# django
+*.sqlite3
+media/*
+static/*
