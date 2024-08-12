@@ -15,3 +15,6 @@ reactpy_router~=0.1.1
 
 # django, reactpy-django and daphne are required for Django integration
 # add them here later
+django~=5.1.0
+daphne~=4.1.2
+reactpy-django~=4.0.0
