@@ -1,16 +1,22 @@
 from django.shortcuts import render
-from armchair.models import Document, Chat
+from armchair.models import Document
+from django.http import HttpResponseRedirect
+from .forms import UploadFileForm
 
 def chat(request):
     return render(request, 'armchair.html')
 
-def upload(request):
-    # not a page view, just submits the file and puts it in the Documents model, then returns a response
-    file = request.FILES['document']
-    document = Document(user=request.user, document=file)
-    document.save()
-    return render(request, 'armchair.html')
-
+def upload_file(request):
+    if request.method == "POST":
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            # file is saved
+            print("success.")
+            form.save()
+            return HttpResponseRedirect("/success/url/")
+    else:
+        form = UploadFileForm()
+    return render(request, "upload.html", {"form": form})
 
 def send(request):
     return render(request, 'armchair.html')

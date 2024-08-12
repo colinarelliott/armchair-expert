@@ -7,5 +7,4 @@ class ArmchairConfig(AppConfig):
 
     def ready(self):
         chatApp = apps.get_app_config("armchair")
-        print("\n\n\n\n\n\nNAME:\n\n\n\n",chatApp)
         register_component(chatApp)
