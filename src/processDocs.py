@@ -7,6 +7,10 @@ from haystack.components.embedders import SentenceTransformersDocumentEmbedder
 from haystack import Pipeline
 from haystack.document_stores.in_memory import InMemoryDocumentStore
 
+import os
+from dotenv import load_dotenv
+from pathlib import Path
+
 output_dir = "processing"
 summaries = {}
 
@@ -31,7 +35,6 @@ def preload():
         if not os.path.exists(".env"):
             with open(".env", "w") as f:
                 f.write("HF_API_TOKEN='your_token_here'\n OPENAI_API_KEY='your_token_here'\n")
-
 
         # create a pipeline to index documents
         document_store = InMemoryDocumentStore()
@@ -73,11 +76,7 @@ def preload():
         preprocessing_pipeline.connect("document_splitter", "document_embedder")
         preprocessing_pipeline.connect("document_embedder", "document_writer")
 
-        from pathlib import Path
         preprocessing_pipeline.run({"file_type_router": {"sources": list(Path(output_dir).glob("**/*"))}})
-
-        import os
-        from dotenv import load_dotenv
 
         # grab the OpenAI API key from the environment if it exists
         dotenv = load_dotenv() if load_dotenv() else None
@@ -119,13 +118,7 @@ def preload():
 
         print("Welcome to Armchair Expert. You loaded the following files:\n")
 
-        # summarize files
-        for file in list(Path(output_dir).glob("**/*")):
-            summary = ask("Summarize the file " + str(file))
-            print(f"{file}: {summary}")
-            global summaries
-            summaries[file] = summary
-            print(summaries)
+        summarize_files()
 
         for file in list(Path(output_dir).glob("**/*")):
             print(file)
@@ -140,10 +133,19 @@ def ask(message):
         {
             "embedder": {"text": message},
             "prompt_builder": {"question": message},
-            "llm": {"generation_kwargs": {"max_new_tokens": 350}},
+            "llm": {"generation_kwargs": {"max_new_tokens": 200}},
         }
     )
 
     if "llm" in response and "replies" in response["llm"] and len(response["llm"]["replies"]) > 0:
         print(response["llm"]["replies"][0])
         return response["llm"]["replies"][0]
+    
+def summarize_files():
+    # summarize files
+    for file in list(Path(output_dir).glob("**/*")):
+        summary = ask("Summarize the file " + str(file))
+        print(f"{file}: {summary}")
+        global summaries
+        summaries[file] = summary
+        print(summaries)
