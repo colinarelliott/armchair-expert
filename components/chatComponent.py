@@ -31,8 +31,10 @@ def chat(handle_submit, set_message, message, response, clear, output_dir):
                         html.h5({"style":"h5",},"Upload file(s) (WIP):\n"),
                     html.form(
                         {
+                        "method":"post",
+                        "action":"upload",
                         "class":"form-control border-0 bg-dark text-light",
-                        "on_submit": handle_submit,
+                        "csrfmiddlewaretoken": "csrf_token",
                         "style": {"display": "inline-grid"},
                         "enctype": "multipart/form-data",
                         },
@@ -44,8 +46,7 @@ def chat(handle_submit, set_message, message, response, clear, output_dir):
                                 "class": "form-control btn btn-info d-grid gap-2 d-md-flex",
                                 "type": "submit",
                                 "for": "formFile",
-                                "on_click":handle_upload,
-                                "disabled":"true"}, "Upload to AI",
+                                "on_click":handle_upload}, "Upload to AI",
                                 
                             ),
                         ),
