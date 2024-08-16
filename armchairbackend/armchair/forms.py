@@ -5,4 +5,6 @@ from armchair.models import Document
 class UploadFileForm(forms.ModelForm):
     class Meta:
         model = Document
-        fields = ['document']
+        # all fields
+        fields = ['user', 'document']
+        required = ['user', 'document']

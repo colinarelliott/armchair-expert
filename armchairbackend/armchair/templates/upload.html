@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <form>
+        <form method="post" action="{% url 'upload' %}" enctype="multipart/form-data">
+            {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">Upload</button>
         </form>

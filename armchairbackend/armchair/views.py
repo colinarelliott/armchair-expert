@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from armchair.models import Document
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse
 from .forms import UploadFileForm
 
 def chat(request):
@@ -9,11 +9,13 @@ def chat(request):
 def upload_file(request):
     if request.method == "POST":
         form = UploadFileForm(request.POST, request.FILES)
+        #form.user = request.user
+        #print("form submission from: ", form.user)
+        print("form data: ", form.data)
         if form.is_valid():
-            # file is saved
-            print("success.")
+            print("form is valid.")
             form.save()
-            return HttpResponseRedirect("/success/url/")
+            return HttpResponse(("<p style='color:green;'>200 - form is  valid.</p>"))
     else:
         form = UploadFileForm()
     return render(request, "upload.html", {"form": form})
