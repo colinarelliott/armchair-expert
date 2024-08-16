@@ -1,7 +1,7 @@
 import asyncio
 from pathlib import Path
 from reactpy import component, event, html, run, use_state
-from src.processDocs import preload as pre, ask
+from src.processDocs import preload as pre, ask, load_django_documents as load_docs
 from components.chatComponent import chat
 from components.loadingComponent import loading
 
@@ -42,6 +42,7 @@ def ArmchairExpertChat():
         preloader(),
         return loading()
     else:
+        load_docs()
         return chat(handle_submit, set_message, message, response, clear, output_dir)
 
 run(ArmchairExpertChat)

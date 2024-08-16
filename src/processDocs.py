@@ -10,6 +10,7 @@ from haystack.document_stores.in_memory import InMemoryDocumentStore
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+import shutil
 
 output_dir = "processing"
 summaries = {}
@@ -28,13 +29,14 @@ def preload():
         return preloadComplete
     else:
         # create a folder to store local input files
-        import os
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
         # create the .env file
         if not os.path.exists(".env"):
             with open(".env", "w") as f:
                 f.write("HF_API_TOKEN='your_token_here'\n OPENAI_API_KEY='your_token_here'\n")
+
+        load_django_documents()
 
         # create a pipeline to index documents
         document_store = InMemoryDocumentStore()
@@ -149,3 +151,10 @@ def summarize_files():
         global summaries
         summaries[file] = summary
         print(summaries)
+
+def load_django_documents():
+    # copy all documents from django processing folder to the local processing folder (that aren't already there)
+    for file in list(Path("armchairbackend/processing/").glob("**/*")):
+        print(str(file).split("/")[2])
+        if not os.path.exists("processing/"+str(file).split("/")[2]):
+            shutil.copy(file, output_dir)
